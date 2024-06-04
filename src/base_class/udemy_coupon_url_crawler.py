@@ -157,7 +157,11 @@ def enext():
     global en_links
     en_links = []
     r = requests.get("https://jobs.e-next.in/public/assets/data/udemy.json")
-    en_links.extend([item['site'] for item in r.json()])
+    en_links.extend([
+        "https://www.udemy.com/course/" + item['url'] + "/?couponCode=" + item['code']
+        for item in r.json()
+        if item['url'] is not None and item['code'] is not None
+    ])
     return en_links
 
 def create_scrape_obj():
@@ -210,4 +214,4 @@ def main():
     tm.join()
 
 
-MAX_PAGE_LOAD = 6
+MAX_PAGE_LOAD = 10

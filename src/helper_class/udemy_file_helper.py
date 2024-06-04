@@ -14,8 +14,11 @@ def get_all_coupon_links():
 
 
 def write_data_to_json(list_data_objects):
-    list_data_objects = [
-        data_object for data_object in list_data_objects if data_object != None]
-    with open("udemy_coupon.json", "w") as f:
-        f.writelines(json.dumps({"update_time": date_time_helper.get_update_time(
-        ), "results": list_data_objects}, default=vars))
+  list_data_objects = [
+      data_object for data_object in list_data_objects if data_object != None
+  ]
+  with open("udemy_coupon.json", "w") as f:
+    # Get only the "results" list (without the surrounding curly braces)
+    results_data = list_data_objects
+    # Dump the results data to the file
+    json.dump(results_data, f, default=vars)
